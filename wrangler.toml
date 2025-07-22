@@ -1,0 +1,12 @@
+name = "itunes-proxy"
+main = "src/index.js"
+compatibility_date = "2025-07-22"
+
+# Uncomment this if deploying to a custom domain or route
+# routes = ["https://yourdomain.com/*"]
+
+# Optional: Only needed if using wrangler CLI with your Cloudflare account
+# account_id = "YOUR_CLOUDFLARE_ACCOUNT_ID"
+
+# Optional but useful for GitHub deployments or CLI publishing
+workers_dev = true
