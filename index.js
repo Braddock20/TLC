@@ -1,20 +1,25 @@
+// src/index.js
 export default {
   async fetch(request) {
-    const { searchParams } = new URL(request.url);
-    const term = searchParams.get("term") || "burna boy";
-    const limit = searchParams.get("limit") || "10";
-    const country = searchParams.get("country") || "US";
+    const url = new URL(request.url)
+    const target = url.searchParams.get("url")
 
-    const url = `https://itunes.apple.com/search?term=${encodeURIComponent(term)}&limit=${limit}&country=${country}`;
-    const response = await fetch(url);
-    const data = await response.text();
+    if (!target) {
+      return new Response("Missing 'url' parameter", { status: 400 })
+    }
 
-    return new Response(data, {
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Cache-Control": "max-age=60",
-      }
-    });
-  }
+    try {
+      const res = await fetch(target)
+      const data = await res.text()
+
+      return new Response(data, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": res.headers.get("content-type") || "text/plain",
+        },
+      })
+    } catch (err) {
+      return new Response(`Fetch error: ${err.message}`, { status: 502 })
+    }
+  },
 }
