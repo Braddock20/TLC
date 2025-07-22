@@ -1,4 +1,4 @@
-name = "itunes-proxy"
+name = "minime"
 main = "src/index.js"
 compatibility_date = "2025-07-22"
 
